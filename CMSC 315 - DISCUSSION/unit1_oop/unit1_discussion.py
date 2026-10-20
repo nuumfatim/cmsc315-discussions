@@ -24,8 +24,15 @@ from copy import copy, deepcopy
 #
 # Replace the pass statement with your implementation.
 
-class ParentClass:
-    pass
+class Potion:
+    potion = "Potion" # class variable
+    def __init__(self, date_brewed, price, quantity): # constructor
+        self.date_brewed = date_brewed
+        self.price = price
+        self.quantity = quantity
+
+    def display_info(self): # display information
+        print("Brewed:", self.date_brewed, "Price:", self.price, "Quantity:", self.quantity)
 
 
 # TODO 2:
@@ -40,8 +47,23 @@ class ParentClass:
 #
 # Replace the pass statement with your implementation.
 
-class ChildClass(ParentClass):
-    pass
+class SleepPotion(Potion):
+    sleep_potion = "Sleep Potion"
+    def __init__(self, date_brewed, price, duration, dosage, quantity):
+        super().__init__(date_brewed, price, quantity)
+        self.duration = duration
+        self.dosage = dosage
+        self.quantity = quantity
+
+    def drink(self): # new method
+        self.quantity -= self.dosage
+        if self.quantity > 0:
+            print("Amount remaining:", self.quantity)
+        else:
+            print("The bottle is empty")
+
+    def display_info(self): # overriden display_info method
+        print(f"Brewed:", self.date_brewed, "Price:", self.price, "Quantity:", self.quantity, "Length of sleep:", self.duration)
 
 
 # TODO 3:
@@ -59,6 +81,18 @@ def demonstrate_namespaces():
     print("\n=== Namespace Demonstration ===")
     print("TODO: Implement namespace demonstration")
 
+    sleep_potion1 = SleepPotion("10/19/2026", "13 silver", "3 days", 5, 25)
+    sleep_potion2 = SleepPotion("9/30/2026", "4 silver", "1 day", 2, 6)
+
+    print("Through class:", SleepPotion.sleep_potion)
+    print("Through object:", sleep_potion1.sleep_potion)
+
+    sleep_potion2.rating = 4 # add a new attribute to sleep_potion2
+
+    print(sleep_potion1.__dict__)
+    print(sleep_potion2.__dict__)
+
+    print(SleepPotion.__dict__)
 
 # TODO 4:
 # Create a function that demonstrates shallow copying and deep copying.
@@ -74,6 +108,21 @@ def demonstrate_namespaces():
 def demonstrate_copying():
     print("\n=== Copy Demonstration ===")
     print("TODO: Implement shallow copy and deep copy demonstration")
+
+    sleep_potion3 = SleepPotion("8/24/2026", "8 silver", "8 hours", 3, 30)
+    sleep_potion3.seller = {"Seller" : "Cuno"}
+
+    # Creates a shallow copy of sleep_potion3. The original object is referenced in regard to nested data, so the copy
+    # is dependent on the original and nested data changes accordingly
+    shallow_copy = copy(sleep_potion3)
+    # Create a copy of sleep_potion3. As a deep copy, nested items are duplicated and the copy is independent of the original
+    deep_copy = deepcopy(sleep_potion3)
+
+    sleep_potion3.seller = {"Seller" : "Carlos"}
+
+    print("Original object:", sleep_potion3)
+    print("Shallow copy:", shallow_copy)
+    print("Deep copy:", deep_copy)
 
 
 # TODO 5:
@@ -91,7 +140,13 @@ def main():
 
     print("\nTODO: Create and test your parent object")
 
+    potion1 = Potion("3/15/2026", "2 gold", 30)
+    potion1.display_info()
+
     print("\nTODO: Create and test your child object")
+
+    sleep_potion4 = SleepPotion("11/1/2025", "1 silver", "1 hour", 2, 12)
+    sleep_potion4.display_info()
 
     demonstrate_namespaces()
     demonstrate_copying()
