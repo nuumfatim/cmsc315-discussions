@@ -111,7 +111,7 @@ def main():
     print("\nNon-existent value:")
     #both should return -1 as the target value is not in the list
     print("Searching for 100 using linear search:", linear_search(test_list, 100))
-    print("Searching for 100 using binary search:", linear_search(test_list, 100))
+    print("Searching for 100 using binary search:", binary_search(test_list, 100))
 
     # ===============================
     # TODO (Student): LARGE DATASET
